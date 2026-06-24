@@ -33,9 +33,29 @@
             50% { opacity: 1; }
             100% { opacity: 0.6; }
         }
-        .progress-bar-container {
+        @keyframes run-bob {
+            0% { transform: translate(-50%, 0px) rotate(-5deg); }
+            50% { transform: translate(-50%, -5px) rotate(5deg); }
+            100% { transform: translate(-50%, 0px) rotate(-5deg); }
+        }
+        .progress-bar-wrapper {
+            position: relative;
             width: 300px;
             max-width: 80%;
+            margin-top: 10px;
+        }
+        .runner {
+            position: absolute;
+            top: -35px;
+            left: 0%;
+            font-size: 28px;
+            transition: left 0.2s ease-out;
+            animation: run-bob 0.4s infinite;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .progress-bar-container {
+            width: 100%;
             height: 10px;
             background-color: #e0e0e0;
             border-radius: 5px;
@@ -66,8 +86,11 @@
     <!-- Full-screen Splash / Loading Screen -->
     <div id="loading">
         <h1>SWAZZER</h1>
-        <div class="progress-bar-container" id="progress-container">
-            <div id="progress-bar"></div>
+        <div class="progress-bar-wrapper" id="progress-wrapper">
+            <div class="runner" id="runner">🏃‍♂️⚽</div>
+            <div class="progress-bar-container" id="progress-container">
+                <div id="progress-bar"></div>
+            </div>
         </div>
     </div>
 
@@ -277,8 +300,14 @@
         }, function (xhr) {
             // Loading progress
             if (xhr.lengthComputable) {
-                const percentComplete = (xhr.loaded / xhr.total) * 100;
-                progressBar.style.width = percentComplete + '%';
+                const percentComplete = xhr.loaded / xhr.total * 100;
+                document.getElementById('progress-bar').style.width = percentComplete + '%';
+                
+                // Move the running boy
+                const runner = document.getElementById('runner');
+                if (runner) {
+                    runner.style.left = percentComplete + '%';
+                }
             }
         }, function (error) {
             console.error('Error loading model:', error);
