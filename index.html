@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Stadium Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .progress-bar-container {
+            position: absolute;
+            top: calc(50% + 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #4caf50;
+            transition: width 0.1s;
+        }
+    </style>
+    <!-- Import maps polyfill -->
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <!-- Using text for the logo until the actual logo file is provided -->
+            <h2 style="margin: 0; color: var(--dark); font-weight: 900; letter-spacing: 1px;">SWAZZER</h2>
+        </div>
+        <div class="nav-links">
+            <a href="#">Service</a>
+            <a href="#">Training</a>
+            <a href="#">Swazzers</a>
+            <button class="btn-primary">CONTACT US</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="hero-container">
+        <!-- The 3D Canvas goes here -->
+        <div id="canvas-container"></div>
+        
+        <!-- Text overlay on top of 3D Canvas -->
+        <div class="hero-overlay">
+            <h1 class="hero-title">SWAZZER<br>FOOTBALL<br>ACADEMY</h1>
+        </div>
+    </div>
+
+    <!-- Swazzers Section -->
+    <section class="section-swazzers animate-on-scroll">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
+            <h2 class="swazzers-title">SWAZZERS</h2>
+            <button class="btn-primary" style="background-color: var(--light); color: var(--dark); border-color: var(--dark);">JOIN THE ACADEMY</button>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span>
+        </div>
+    </div>
+
+    <!-- Training Section -->
+    <section class="split-section animate-on-scroll">
+        <div class="split-image" style="background-image: url('hero_bg.png');"></div>
+        <div class="split-content">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 40px;">
+                <h2 class="split-title">TRAINING</h2>
+                <button class="btn-primary">LEARN MORE</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Section -->
+    <section class="split-section reverse animate-on-scroll">
+        <!-- Replaced the image with a Contact Us block on the right part -->
+        <div class="split-image" style="background-color: var(--primary-teal); display: flex; flex-direction: column; justify-content: center; padding: 80px; color: var(--light);">
+            <h3 style="color: var(--light); font-size: 3rem; margin: 0 0 20px 0; font-weight: 900; text-transform: uppercase;">CONTACT US</h3>
+            <p style="font-size: 1.2rem; margin: 0 0 15px 0; font-weight: 600;">Email: <span style="font-weight: 400;">info@swazzeracademy.com</span></p>
+            <p style="font-size: 1.2rem; margin: 0 0 15px 0; font-weight: 600;">Phone: <span style="font-weight: 400;">+351 123 456 789</span></p>
+            <p style="font-size: 1.2rem; margin: 0 0 30px 0; font-weight: 600;">Location: <span style="font-weight: 400;">Lisbon, Portugal</span></p>
+            <button class="btn-primary" style="align-self: flex-start; background-color: var(--light); color: var(--dark); border-color: var(--dark);">SEND A MESSAGE</button>
+        </div>
+        <div class="split-content">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 40px;">
+                <h2 class="split-title">SERVICE</h2>
+                <button class="btn-primary">DISCOVER</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="loading">Loading 3D Model... (This is a 100MB file, it might take a moment)</div>
+    <div class="progress-bar-container" id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB); // Sky blue background
+
+        // Camera setup
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
+        camera.position.set(0, 100, 300);
+
+        // Renderer setup
+        const container = document.getElementById('canvas-container');
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        container.appendChild(renderer.domElement);
+
+        // Controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go completely under ground
+        controls.autoRotate = true; // Automatically rotate 360 degrees
+        controls.autoRotateSpeed = 1.0; // Speed of rotation
+        controls.enableZoom = false; // Disable scroll wheel zooming so it doesn't interfere with page scrolling
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        dirLight.position.set(100, 200, 50);
+        dirLight.castShadow = true;
+        dirLight.shadow.camera.top = 1000;
+        dirLight.shadow.camera.bottom = -1000;
+        dirLight.shadow.camera.left = -1000;
+        dirLight.shadow.camera.right = 1000;
+        dirLight.shadow.camera.near = 0.1;
+        dirLight.shadow.camera.far = 5000;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        scene.add(dirLight);
+
+        // UI Elements
+        const loadingEl = document.getElementById('loading');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+
+        // Load GLB Model
+        const loader = new GLTFLoader();
+        let mixer; // Variable to hold the animation mixer
+        const clock = new THREE.Clock(); // Clock to track time for animations
+        
+        // Variables to keep animations perfectly synced
+        let allActions = [];
+        let maxDuration = 0;
+        let currentAnimTime = 0;
+
+        loader.load('fshwapnil.glb', function (gltf) {
+            const model = gltf.scene;
+            
+            // Check if the model has animations and play them
+            if (gltf.animations && gltf.animations.length > 0) {
+                mixer = new THREE.AnimationMixer(model);
+                
+                // Play all animations in a loop, and find the longest one
+                gltf.animations.forEach((clip) => {
+                    if (clip.duration > maxDuration) maxDuration = clip.duration;
+                    
+                    const action = mixer.clipAction(clip);
+                    action.setLoop(THREE.LoopRepeat); // Set back to loop
+                    action.play();
+                    allActions.push(action);
+                });
+            }
+
+            // Enable shadows for the model
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+            scene.add(model);
+
+            // Automatically center and scale camera based on model size
+            const box = new THREE.Box3().setFromObject(model);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+
+            // Reset model origin to center
+            model.position.x += (model.position.x - center.x);
+            model.position.y += (model.position.y - center.y);
+            model.position.z += (model.position.z - center.z);
+
+            const maxDim = Math.max(size.x, size.y, size.z);
+            
+            // Drastically reduce the distance to put the camera INSIDE the stadium netting
+            // Zoomed in an additional 20% from the previous distance
+            let cameraDistance = maxDim * 0.32;
+            
+            // Mathematically calculate the height needed to make the camera look exactly 30 degrees DOWN at the player
+            // Horizontal distance to center is roughly cameraDistance * 1.414 (due to X and Z diagonals)
+            // Tan(30 degrees) = ~0.577. 1.414 * 0.577 = ~0.81
+            let cameraHeight = cameraDistance * 0.81;
+            
+            // Position the camera in the corner of the pitch, looking 30 degrees down at the player
+            camera.position.set(center.x + cameraDistance, center.y + cameraHeight, center.z + cameraDistance);
+            
+            // Look directly at the player/center of the pitch
+            controls.target.set(center.x, center.y, center.z);
+            controls.update();
+
+            // Hide loading indicator
+            loadingEl.style.display = 'none';
+            progressContainer.style.display = 'none';
+
+        }, function (xhr) {
+            // Loading progress
+            if (xhr.lengthComputable) {
+                const percentComplete = (xhr.loaded / xhr.total) * 100;
+                progressBar.style.width = percentComplete + '%';
+            }
+        }, function (error) {
+            console.error('Error loading model:', error);
+            loadingEl.innerText = 'Error loading model. Please check console.';
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            const container = document.getElementById('canvas-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        // --- SCROLL ANIMATION LOGIC ---
+        // Setup Intersection Observer to trigger pop-up animations when scrolling down 20%
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // Trigger when 20% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Run once
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections with the animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+        // ------------------------------
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Update the animation mixer if it exists
+            if (mixer) {
+                const delta = clock.getDelta();
+                currentAnimTime += delta;
+                
+                // Force sync: If we reach the end of the longest animation, 
+                // reset EVERYTHING back to the exact starting frame so they never drift.
+                if (maxDuration > 0 && currentAnimTime >= maxDuration) {
+                    currentAnimTime = currentAnimTime % maxDuration;
+                    allActions.forEach(action => {
+                        action.reset();
+                        action.play();
+                    });
+                    mixer.update(currentAnimTime);
+                } else {
+                    mixer.update(delta);
+                }
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
