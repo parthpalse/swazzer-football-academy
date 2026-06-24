@@ -50,7 +50,13 @@
             width: 0%;
             height: 100%;
             background: var(--primary-teal, #3BB28B);
-            transition: width 0.1s ease;
+            animation: fake-load 4s ease-out forwards;
+        }
+        @keyframes fake-load {
+            0% { width: 0%; }
+            40% { width: 60%; }
+            80% { width: 90%; }
+            100% { width: 100%; }
         }
     </style>
     <!-- Import maps polyfill -->
@@ -282,11 +288,8 @@
             }, remainingTime);
 
         }, function (xhr) {
-            // Loading progress
-            if (xhr.lengthComputable) {
-                const percentComplete = xhr.loaded / xhr.total * 100;
-                document.getElementById('progress-bar').style.width = percentComplete + '%';
-            }
+            // Vercel sometimes blocks the exact file size (Content-Length), 
+            // so we handle the smooth loading bar using the 4-second CSS animation instead!
         }, function (error) {
             console.error('Error loading model:', error);
             loadingEl.innerText = 'Error loading model. Please check console.';
