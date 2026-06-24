@@ -50,11 +50,12 @@
             width: 0%;
             height: 100%;
             background: var(--primary-teal, #3BB28B);
-            animation: fake-load 4.5s ease-in-out forwards;
+            animation: fake-load 30s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+            transition: width 0.4s ease-out;
         }
         @keyframes fake-load {
             0% { width: 0%; }
-            100% { width: 100%; }
+            100% { width: 95%; }
         }
     </style>
     <!-- Import maps polyfill -->
@@ -277,12 +278,28 @@
             const remainingTime = Math.max(0, 4000 - timeElapsed);
 
             setTimeout(() => {
-                const loadingScreen = document.getElementById('loading');
-                loadingScreen.style.opacity = '0'; // Smooth fade out
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) {
+                    // Capture exactly where the fake loading bar is right now
+                    const currentWidth = window.getComputedStyle(progressBar).width;
+                    progressBar.style.animation = 'none'; // Stop fake animation
+                    progressBar.style.width = currentWidth; // Lock it to current spot
+                    
+                    void progressBar.offsetWidth; // Force browser to register the lock
+                    
+                    progressBar.style.width = '100%'; // Smoothly zip it to 100%
+                }
+
+                // Wait 0.4 seconds for the bar to visually hit 100%, THEN fade out the splash screen
                 setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    scene.add(model);
-                }, 500); // Wait 0.5s for the CSS fade transition to finish
+                    const loadingScreen = document.getElementById('loading');
+                    loadingScreen.style.opacity = '0'; // Smooth fade out
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        scene.add(model);
+                    }, 500); // Wait 0.5s for the CSS fade transition to finish
+                }, 400);
+
             }, remainingTime);
 
         }, function (xhr) {
