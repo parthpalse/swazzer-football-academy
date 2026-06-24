@@ -241,22 +241,11 @@
             controls.target.set(center.x, center.y, center.z);
             controls.update();
 
-            // We will hold the model until the 30-second minimum loading screen is done
-            let timeRemaining = 30;
-            document.getElementById('loading').innerText = "Model Downloaded! Finalizing... Please wait 30 seconds.";
-            
-            const countdownInterval = setInterval(() => {
-                timeRemaining--;
-                if (timeRemaining > 0) {
-                    document.getElementById('loading').innerText = `Model Downloaded! Finalizing... Please wait ${timeRemaining} seconds.`;
-                } else {
-                    clearInterval(countdownInterval);
-                    // 30 seconds have passed, hide loading and show model
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('progress-container').style.display = 'none';
-                    scene.add(model);
-                }
-            }, 1000);
+            // Hide loading indicator
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('progress-container').style.display = 'none';
+
+            scene.add(model);
 
         }, function (xhr) {
             // Loading progress
