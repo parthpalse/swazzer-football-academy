@@ -490,3 +490,121 @@ body {
     font-size: 1rem;
     margin: 0;
 }
+
+/* =========================================
+   Mobile Responsiveness
+========================================= */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Hero */
+    .hero-overlay {
+        padding: 0 5%;
+    }
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    /* Split Sections (Training, Service, Contact) */
+    .split-section, .split-section.reverse {
+        flex-direction: column;
+    }
+    .split-content {
+        padding: 50px 20px;
+        text-align: center;
+    }
+    .split-content > div {
+        align-items: center !important;
+    }
+    .split-title {
+        font-size: 3.5rem;
+    }
+    .split-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .split-image {
+        min-height: 250px;
+        padding: 40px 20px !important;
+        text-align: center;
+    }
+    .split-image button {
+        align-self: center !important;
+    }
+
+    /* Intro Statement */
+    .intro-section {
+        padding: 60px 15px;
+    }
+    .intro-title {
+        font-size: 1.8rem;
+    }
+
+    /* Coach Section */
+    .coach-section {
+        padding: 40px 5%;
+        gap: 20px;
+    }
+    .coach-title {
+        font-size: 2.2rem;
+    }
+
+    /* Benefits Grid */
+    .benefits-section {
+        padding: 60px 5%;
+    }
+    .benefits-header {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+    .benefits-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically on mobile */
+    }
+    .benefits-conclusion {
+        font-size: 1.3rem;
+    }
+
+    /* FAQ / Accordion */
+    .faq-section {
+        padding: 40px 5%;
+    }
+    .faq-question {
+        font-size: 1.2rem;
+        padding: 15px 20px;
+    }
+    .faq-question::after {
+        right: 15px;
+    }
+    .faq-answer {
+        padding: 0 20px 20px 20px;
+    }
+
+    /* Map Section */
+    .map-section {
+        padding: 40px 5%;
+    }
+    .map-title {
+        font-size: 2rem;
+    }
+    .map-container iframe {
+        height: 300px; /* Shorter map on mobile */
+    }
+    
+    /* QR Block */
+    .qr-container {
+        margin: 20px auto 0 auto;
+    }
+}
