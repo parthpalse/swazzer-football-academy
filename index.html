@@ -288,6 +288,7 @@
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
         // Scene setup
         const scene = new THREE.Scene();
@@ -341,10 +342,16 @@
 
         // Load GLB Model
         const loader = new GLTFLoader();
+        
+        // Setup Draco Decoder for compressed models
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+        loader.setDRACOLoader(dracoLoader);
+
         let mixer; // Variable to hold the animation mixer
         const clock = new THREE.Clock(); // Clock to track time for animations
 
-        loader.load('fullllllfinalll.glb', function (gltf) {
+        loader.load('model_compressed.glb', function (gltf) {
             const model = gltf.scene;
             
             // Check if the model has animations and play them
