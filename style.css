@@ -491,6 +491,11 @@ body {
     margin: 0;
 }
 
+/* Mobile Scroll Zone (Hidden on Desktop) */
+.mobile-scroll-zone {
+    display: none;
+}
+
 /* =========================================
    Mobile Responsiveness
 ========================================= */
@@ -510,12 +515,26 @@ body {
     /* Hero */
     .hero-overlay {
         padding: 0 5%;
+        pointer-events: none; /* Let touches pass through overlay text */
     }
     .hero-title {
         font-size: 3.5rem;
     }
     .hero-subtitle {
         font-size: 1.2rem;
+    }
+
+    /* Safe Scroll Zone */
+    .mobile-scroll-zone {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100vh;
+        z-index: 50; /* Sits above the 3D canvas */
+        pointer-events: auto; /* Catches touch events so they scroll the page instead of spinning the model */
+        touch-action: pan-y; /* Explicitly allow vertical scrolling */
     }
 
     /* Split Sections (Training, Service, Contact) */
