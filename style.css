@@ -234,3 +234,259 @@ body {
 #loading, #progress-container {
     z-index: 2000;
 }
+
+/* Intro Statement */
+.intro-section {
+    padding: 100px 20px;
+    background-color: var(--dark);
+    color: var(--light);
+    text-align: center;
+}
+.intro-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: var(--primary-teal);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.intro-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* Meet the Coach & Team */
+.coach-section {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #1a1a1a;
+    color: var(--light);
+    padding: 80px 10%;
+    gap: 40px;
+}
+.coach-left {
+    flex: 1;
+    min-width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.coach-left img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+}
+.coach-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.coach-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+    color: var(--primary-teal);
+}
+.coach-bio {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+.coach-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+.coach-bullets li {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    font-weight: 600;
+}
+.coach-bullets li::before {
+    content: "⚽";
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+.coach-team-img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+}
+
+/* Benefits Grid */
+.benefits-section {
+    padding: 100px 5%;
+    background-color: var(--dark);
+}
+.benefits-header {
+    text-align: center;
+    color: var(--light);
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+}
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+.benefit-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+}
+.benefit-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-teal);
+}
+.benefit-card h3 {
+    color: var(--primary-teal);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.benefit-card h4 {
+    color: var(--light);
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+.benefit-card ul {
+    padding-left: 20px;
+    color: var(--light);
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+.benefit-card ul li {
+    margin-bottom: 8px;
+}
+.benefit-quote {
+    font-style: italic;
+    color: var(--light);
+    opacity: 0.6;
+    font-size: 0.95rem;
+    border-left: 3px solid var(--primary-teal);
+    padding-left: 10px;
+}
+.benefits-conclusion {
+    text-align: center;
+    color: var(--primary-teal);
+    font-size: 1.8rem;
+    font-weight: 800;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Accordion */
+.faq-section {
+    padding: 80px 10%;
+    background-color: var(--light);
+}
+.faq-item {
+    background: var(--dark);
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.faq-question {
+    padding: 20px 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--light);
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+    outline: none;
+}
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+.faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    color: var(--primary-teal);
+}
+.faq-item[open] .faq-question::after {
+    content: '-';
+}
+.faq-answer {
+    padding: 0 30px 30px 30px;
+    color: var(--light);
+    opacity: 0.9;
+}
+.faq-answer ul {
+    margin: 0;
+    padding-left: 20px;
+}
+.faq-answer li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Location Map */
+.map-section {
+    padding: 80px 5%;
+    background-color: #1a1a1a;
+    text-align: center;
+}
+.map-title {
+    color: var(--light);
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+.map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,255,255,0.1);
+}
+.map-container iframe {
+    display: block;
+}
+
+/* QR Code */
+.qr-container {
+    background-color: var(--light);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 30px;
+    text-align: center;
+    max-width: 250px;
+}
+.qr-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+.qr-text {
+    color: var(--dark);
+    font-weight: 900;
+    font-size: 1rem;
+    margin: 0;
+}
