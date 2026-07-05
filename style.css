@@ -508,12 +508,14 @@ body {
         justify-content: space-between;
     }
     .nav-logo img {
-        height: 35px !important;
+        height: 48px !important;
     }
     .nav-links {
-        gap: 6px;
+        flex: 1;
+        gap: 2px;
         flex-wrap: nowrap;
-        justify-content: flex-end;
+        justify-content: space-evenly;
+        margin-left: 5px;
     }
     .nav-links a {
         font-size: 9px;
