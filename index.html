@@ -401,9 +401,14 @@
             // Tan(30 degrees) = ~0.577. 1.414 * 0.577 = ~0.81
             let cameraHeight = cameraDistance * 0.81;
             
-            // Position the camera straight down the pitch (behind the players) instead of the diagonal corner
-            // Multiplied Z by 1.414 to maintain the exact same total distance from the center as the old diagonal position
-            camera.position.set(center.x, center.y + cameraHeight, center.z + (cameraDistance * 1.414));
+            // Calculate position for an 80-degree starting angle
+            const angle = 80 * (Math.PI / 180);
+            const radius = cameraDistance * 1.414;
+            camera.position.set(
+                center.x + Math.sin(angle) * radius, 
+                center.y + cameraHeight, 
+                center.z + Math.cos(angle) * radius
+            );
             
             // Look directly at the player/center of the pitch
             controls.target.set(center.x, center.y, center.z);
