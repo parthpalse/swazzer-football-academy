@@ -363,6 +363,8 @@
                 
                 // Play all animations in a loop
                 gltf.animations.forEach((clip) => {
+                    // Trim a tiny fraction off the end of the clip (approx 1 frame) to prevent stutter at loop point
+                    clip.duration -= 0.04; 
                     const action = mixer.clipAction(clip);
                     action.play();
                 });
