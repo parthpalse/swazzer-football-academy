@@ -700,7 +700,10 @@ body {
 
     /* FAQ / Accordion */
     .faq-section {
-        padding: 40px 5%;
+        padding: 40px 0;
+    }
+    .faq-item {
+        border-radius: 0;
     }
     .faq-question {
         font-size: 1.2rem;
