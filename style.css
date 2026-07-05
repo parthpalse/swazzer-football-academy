@@ -502,14 +502,26 @@ body {
 @media (max-width: 768px) {
     /* Navbar */
     .navbar {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
+        padding: 10px 5px;
+        flex-direction: row;
+        gap: 5px;
+        justify-content: space-between;
+    }
+    .nav-logo img {
+        height: 35px !important;
     }
     .nav-links {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 6px;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+    }
+    .nav-links a {
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+    .navbar .btn-primary {
+        padding: 6px 8px;
+        font-size: 9px;
     }
 
     /* Hero */
