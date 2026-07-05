@@ -483,7 +483,10 @@
             
             // Update the animation mixer if it exists
             if (mixer) {
-                mixer.update(clock.getDelta());
+                let delta = clock.getDelta();
+                // Prevent massive animation jumps if the browser lags (clamp to max ~20fps drop)
+                if (delta > 0.05) delta = 0.05; 
+                mixer.update(delta);
             }
             
             controls.update();
