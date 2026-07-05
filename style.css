@@ -1,6 +1,8 @@
 /* Base Styles */
 :root {
     --primary-teal: #3BB28B;
+    --logo-navy: #1A315C;
+    --logo-blue: #89BBE3;
     --dark: #111111;
     --light: #ffffff;
     --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
