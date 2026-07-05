@@ -678,7 +678,21 @@ body {
         margin-bottom: 40px;
     }
     .benefits-grid {
-        grid-template-columns: 1fr; /* Stack cards vertically on mobile */
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        gap: 20px;
+        padding-bottom: 20px; /* optional padding */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .benefits-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .benefit-card {
+        flex: 0 0 85%; /* 85% width so the next card peeks in */
+        scroll-snap-align: center;
     }
     .benefits-conclusion {
         font-size: 1.3rem;
