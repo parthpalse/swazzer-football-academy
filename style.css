@@ -239,7 +239,7 @@ body {
 
 /* Intro Statement */
 .intro-section {
-    padding: 100px 20px;
+    padding: 40px 20px;
     background-color: var(--dark);
     color: var(--light);
     text-align: center;
@@ -583,7 +583,7 @@ body {
 
     /* Intro Statement */
     .intro-section {
-        padding: 60px 15px;
+        padding: 30px 15px;
     }
     .intro-title {
         font-size: 1.8rem;
