@@ -303,9 +303,9 @@
 
         // Renderer setup
         const container = document.getElementById('canvas-container');
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: "high-performance" });
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap pixel ratio to prevent mobile lag
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -354,7 +354,7 @@
         let mixer; // Variable to hold the animation mixer
         const clock = new THREE.Clock(); // Clock to track time for animations
 
-        loader.load('model_compressed.glb', function (gltf) {
+        loader.load('fullllllfinalll.glb', function (gltf) {
             const model = gltf.scene;
             
             // Check if the model has animations and play them
