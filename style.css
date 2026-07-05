@@ -533,10 +533,10 @@ body {
         pointer-events: none; /* Let touches pass through overlay text */
     }
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     /* Safe Scroll Zone */
