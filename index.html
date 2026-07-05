@@ -401,8 +401,8 @@
             // Tan(30 degrees) = ~0.577. 1.414 * 0.577 = ~0.81
             let cameraHeight = cameraDistance * 0.81;
             
-            // Calculate position for an 80-degree starting angle
-            const angle = 80 * (Math.PI / 180);
+            // Calculate position for an -160-degree starting angle
+            const angle = -160 * (Math.PI / 180);
             const radius = cameraDistance * 1.414;
             camera.position.set(
                 center.x + Math.sin(angle) * radius, 
