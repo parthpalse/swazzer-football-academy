@@ -508,7 +508,7 @@ body {
         justify-content: space-between;
     }
     .nav-logo img {
-        height: 48px !important;
+        height: 55px !important;
     }
     .nav-links {
         flex: 1;
@@ -518,12 +518,12 @@ body {
         margin-left: 5px;
     }
     .nav-links a {
-        font-size: 9px;
+        font-size: 11px;
         letter-spacing: 0;
     }
     .navbar .btn-primary {
-        padding: 6px 8px;
-        font-size: 9px;
+        padding: 8px 10px;
+        font-size: 11px;
     }
 
     /* Hero */
