@@ -293,7 +293,7 @@ body {
     justify-content: center;
 }
 .coach-title {
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-weight: 900;
     margin: 0 0 10px 0;
     color: var(--primary-teal);
@@ -598,7 +598,7 @@ body {
         gap: 20px;
     }
     .coach-title {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
     }
 
     /* Benefits Grid */
