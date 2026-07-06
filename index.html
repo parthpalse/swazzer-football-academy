@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Stadium Viewer</title>
-    <link rel="stylesheet" href="style.css?v=21">
+    <link rel="stylesheet" href="style.css?v=22">
     <style>
         #loading {
             position: fixed;
@@ -121,7 +121,24 @@
     <section class="coach-section animate-on-scroll">
         <div class="coach-left">
             <h3 style="color: var(--light); opacity: 0.8; margin-top: 0; margin-bottom: 10px; font-weight: 500;">Meet the Owner/Coach</h3>
-            <img src="coach.jpg" alt="Coach Swapnil with Trophies">
+            <div class="carousel-container coach-carousel">
+                <div class="carousel-track" id="coach-carousel">
+                    <div class="carousel-slide">
+                        <img src="coach.jpg" alt="Coach Swapnil with Trophies">
+                    </div>
+                    <div class="carousel-slide">
+                        <video src="carousel1.mp4" muted loop playsinline></video>
+                    </div>
+                    <div class="carousel-slide">
+                        <video src="carousel2.mp4" muted loop playsinline></video>
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
         </div>
         <div class="coach-right">
             <h2 class="coach-title">Swapnil S. Shelatkar</h2>
@@ -148,24 +165,7 @@
 
     <!-- Training Section -->
     <section class="split-section animate-on-scroll">
-        <div class="carousel-container">
-            <div class="carousel-track" id="training-carousel">
-                <div class="carousel-slide">
-                    <video src="carousel1.mp4" muted loop playsinline></video>
-                </div>
-                <div class="carousel-slide">
-                    <video src="carousel2.mp4" muted loop playsinline></video>
-                </div>
-                <div class="carousel-slide">
-                    <img src="carousel3.png" alt="Swazzers training scene">
-                </div>
-            </div>
-            <div class="carousel-indicators">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
+        <div class="split-image" style="background-image: url('hero_bg.png');"></div>
         <div class="split-content">
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 40px;">
                 <h2 class="split-title">TRAINING</h2>
@@ -478,7 +478,7 @@
             renderer.setSize(container.clientWidth, container.clientHeight);
         }
         // --- CAROUSEL LOGIC ---
-        const carouselTrack = document.getElementById('training-carousel');
+        const carouselTrack = document.getElementById('coach-carousel');
         if (carouselTrack) {
             const slides = carouselTrack.querySelectorAll('.carousel-slide');
             const dots = document.querySelectorAll('.carousel-indicators .dot');
