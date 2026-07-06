@@ -691,8 +691,12 @@ body {
         display: none;
     }
     .benefit-card {
-        flex: 0 0 85%; /* 85% width so the next card peeks in */
+        flex: 0 0 80%; /* 80% width so the next card peeks in more */
         scroll-snap-align: center;
+        padding: 20px;
+    }
+    .benefit-card h3 {
+        font-size: 1.3rem;
     }
     .benefits-conclusion {
         font-size: 1.3rem;
