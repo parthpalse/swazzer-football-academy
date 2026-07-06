@@ -8,10 +8,6 @@
     --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     margin: 0;
     font-family: var(--font-stack);
@@ -19,11 +15,7 @@ body {
     color: var(--dark);
     /* Allow scrolling now */
     overflow-x: hidden;
-}
-
-/* Remove default link styling from nav CONTACT US */
-.nav-links a {
-    text-decoration: none;
+    scroll-behavior: smooth;
 }
 
 /* Animations */
