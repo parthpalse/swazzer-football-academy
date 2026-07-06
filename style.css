@@ -516,11 +516,20 @@ body {
 .coach-carousel {
     border-radius: 10px;
     border: 2px solid rgba(255,255,255,0.1);
-    min-height: 520px;
+    height: 520px;
+    min-height: unset;
+}
+.coach-carousel .carousel-track {
+    height: 520px;
+}
+.coach-carousel .carousel-slide {
+    height: 520px;
 }
 @media (max-width: 768px) {
-    .coach-carousel {
-        min-height: 420px;
+    .coach-carousel,
+    .coach-carousel .carousel-track,
+    .coach-carousel .carousel-slide {
+        height: 400px;
     }
 }
 
