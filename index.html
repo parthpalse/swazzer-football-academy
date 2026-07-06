@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Stadium Viewer</title>
-    <link rel="stylesheet" href="style.css?v=23">
+    <link rel="stylesheet" href="style.css?v=24">
     <style>
         #loading {
             position: fixed;
@@ -165,7 +165,28 @@
 
     <!-- Training Section -->
     <section class="split-section animate-on-scroll">
-        <div class="split-image" style="background-image: url('hero_bg.png');"></div>
+        <div class="carousel-container training-carousel">
+            <div class="carousel-track" id="training-carousel">
+                <div class="carousel-slide">
+                    <video src="training1.mp4" muted loop playsinline></video>
+                </div>
+                <div class="carousel-slide">
+                    <video src="training2.mp4" muted loop playsinline></video>
+                </div>
+                <div class="carousel-slide">
+                    <video src="training3.mp4" muted loop playsinline></video>
+                </div>
+                <div class="carousel-slide">
+                    <video src="training4.mp4" muted loop playsinline></video>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
         <div class="split-content">
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 40px;">
                 <h2 class="split-title">TRAINING</h2>
@@ -478,34 +499,31 @@
             renderer.setSize(container.clientWidth, container.clientHeight);
         }
         // --- CAROUSEL LOGIC ---
-        const carouselTrack = document.getElementById('coach-carousel');
-        if (carouselTrack) {
-            const slides = carouselTrack.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.carousel-indicators .dot');
-            
-            const carouselObserver = new IntersectionObserver((entries) => {
+        function initCarousel(trackId) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            const slides = track.querySelectorAll('.carousel-slide');
+            const container = track.closest('.carousel-container');
+            const dots = container ? container.querySelectorAll('.carousel-indicators .dot') : [];
+
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const video = entry.target.querySelector('video');
-                    // Find index of this slide
                     const index = Array.from(slides).indexOf(entry.target);
-                    
                     if (entry.isIntersecting) {
                         if (video) video.play().catch(e => console.log('Autoplay prevented', e));
-                        
-                        // Update dots
                         dots.forEach(d => d.classList.remove('active'));
                         if (dots[index]) dots[index].classList.add('active');
                     } else {
                         if (video) video.pause();
                     }
                 });
-            }, {
-                root: carouselTrack,
-                threshold: 0.6 // Trigger when 60% of the video is visible
-            });
-            
-            slides.forEach(slide => carouselObserver.observe(slide));
+            }, { root: track, threshold: 0.6 });
+
+            slides.forEach(slide => observer.observe(slide));
         }
+        initCarousel('coach-carousel');
+        initCarousel('training-carousel');
         // ------------------------------
 
         // --- SCROLL ANIMATION LOGIC ---

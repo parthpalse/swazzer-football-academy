@@ -533,6 +533,24 @@ body {
     }
 }
 
+.training-carousel {
+    min-height: 400px;
+    height: 100%;
+}
+.training-carousel .carousel-track,
+.training-carousel .carousel-slide {
+    height: 100%;
+    min-height: 400px;
+}
+@media (max-width: 768px) {
+    .training-carousel,
+    .training-carousel .carousel-track,
+    .training-carousel .carousel-slide {
+        min-height: 350px;
+        height: 350px;
+    }
+}
+
 .carousel-track {
     display: flex;
     overflow-x: auto;
