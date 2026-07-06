@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Stadium Viewer</title>
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=26">
     <style>
         #loading {
             position: fixed;
@@ -122,6 +122,8 @@
         <div class="coach-left">
             <h3 style="color: var(--light); opacity: 0.8; margin-top: 0; margin-bottom: 10px; font-weight: 500;">Meet the Owner/Coach</h3>
             <div class="carousel-container coach-carousel">
+                <button class="carousel-arrow prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                <button class="carousel-arrow next" onclick="scrollCarousel(this, 1)">&#10095;</button>
                 <div class="carousel-track" id="coach-carousel">
                     <div class="carousel-slide">
                         <img src="coach.jpg" alt="Coach Swapnil with Trophies">
@@ -166,6 +168,8 @@
     <!-- Training Section -->
     <section id="section-training" class="split-section animate-on-scroll">
         <div class="carousel-container training-carousel">
+            <button class="carousel-arrow prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+            <button class="carousel-arrow next" onclick="scrollCarousel(this, 1)">&#10095;</button>
             <div class="carousel-track" id="training-carousel">
                 <div class="carousel-slide">
                     <video src="training1.mp4" muted loop playsinline></video>
@@ -582,6 +586,13 @@
         animate();
     </script>
     <script>
+        function scrollCarousel(button, direction) {
+            const container = button.closest('.carousel-container');
+            const track = container.querySelector('.carousel-track');
+            const slideWidth = track.clientWidth;
+            track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+        }
+
         function sendContactMessage() {
             const name = document.getElementById('contact-name').value.trim();
             const phone = document.getElementById('contact-phone').value.trim();
