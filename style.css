@@ -706,9 +706,15 @@ body {
     /* FAQ / Accordion */
     .faq-section {
         padding: 40px 0;
+        width: 100%;
+        box-sizing: border-box;
     }
     .faq-item {
         border-radius: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
     }
     .faq-question {
         font-size: 1.4rem;
