@@ -412,13 +412,14 @@ body {
 }
 .faq-question {
     padding: 20px 30px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--light);
     cursor: pointer;
     list-style: none;
     position: relative;
     outline: none;
+    text-align: center;
 }
 .faq-question::-webkit-details-marker {
     display: none;
@@ -710,8 +711,9 @@ body {
         border-radius: 0;
     }
     .faq-question {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         padding: 15px 20px;
+        text-align: center;
     }
     .faq-question::after {
         right: 15px;
