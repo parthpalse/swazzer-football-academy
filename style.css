@@ -678,13 +678,15 @@ body {
     /* Split Sections (Training, Service, Contact) */
     .split-section, .split-section.reverse {
         flex-direction: column;
+        min-height: auto;
     }
     #section-training {
         flex-direction: column-reverse;
     }
     .split-content {
-        padding: 50px 20px;
+        padding: 30px 20px;
         text-align: center;
+        flex: none;
     }
     .split-content > div {
         align-items: center !important;
