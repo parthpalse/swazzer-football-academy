@@ -679,6 +679,9 @@ body {
     .split-section, .split-section.reverse {
         flex-direction: column;
     }
+    #section-training {
+        flex-direction: column-reverse;
+    }
     .split-content {
         padding: 50px 20px;
         text-align: center;
