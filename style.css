@@ -621,19 +621,21 @@ body {
 @media (max-width: 768px) {
     /* Navbar */
     .navbar {
-        padding: 10px 5px;
+        padding: 8px 5px;
         flex-direction: row;
         gap: 5px;
         justify-content: space-between;
+        align-items: center;
     }
     .nav-logo img {
-        height: 55px !important;
+        height: 40px !important;
     }
     .nav-links {
         flex: 1;
-        gap: 2px;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
+        gap: 4px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
         margin-left: 5px;
     }
     .nav-links a {
@@ -641,7 +643,7 @@ body {
         letter-spacing: 0;
     }
     .navbar .btn-primary {
-        padding: 8px 10px;
+        padding: 6px 8px;
         font-size: 11px;
     }
 
@@ -652,7 +654,8 @@ body {
         pointer-events: none; /* Let touches pass through overlay text */
     }
     .hero-title {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 13vw, 3.5rem);
+        line-height: 1.1;
     }
     .hero-subtitle {
         font-size: 1rem;
