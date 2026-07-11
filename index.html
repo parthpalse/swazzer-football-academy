@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Stadium Viewer</title>
-    <link rel="stylesheet" href="style.css?v=28">
+    <link rel="stylesheet" href="style.css?v=29">
     <style>
         #loading {
             position: fixed;
@@ -59,30 +59,10 @@
             100% { width: 95%; }
         }
     </style>
-    <!-- Import maps polyfill -->
-    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
-    
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
+
 </head>
 <body>
-    <script>window.pageStartTime = Date.now();</script>
-    
-    <!-- Full-screen Splash / Loading Screen -->
-    <div id="loading">
-        <h1>SWAZZER</h1>
-        <div class="progress-bar-wrapper" id="progress-wrapper">
-            <div class="progress-bar-container" id="progress-container">
-                <div id="progress-bar"></div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -99,8 +79,8 @@
 
     <!-- Hero Section -->
     <div id="hero-container">
-        <!-- The 3D Canvas goes here -->
-        <div id="canvas-container"></div>
+        <!-- The Video goes here -->
+        <video id="hero-video" src="hero_video.mp4" autoplay loop muted playsinline></video>
         
         <!-- Text overlay on top of 3D Canvas -->
         <div class="hero-overlay">
@@ -345,178 +325,7 @@
         </div>
     </section>
 
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-
-        // Scene setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x87CEEB); // Sky blue background
-
-        // Camera setup
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
-        camera.position.set(0, 100, 300);
-
-        // Renderer setup
-        const container = document.getElementById('canvas-container');
-        const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: "high-performance" });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap pixel ratio to prevent mobile lag
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.0;
-        container.appendChild(renderer.domElement);
-
-        // Controls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go completely under ground
-        controls.autoRotate = true; // Automatically rotate 360 degrees
-        controls.autoRotateSpeed = 1.0; // Speed of rotation
-        controls.enableZoom = false; // Disable scroll wheel zooming so it doesn't interfere with page scrolling
-
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        dirLight.position.set(100, 200, 50);
-        dirLight.castShadow = true;
-        dirLight.shadow.camera.top = 1000;
-        dirLight.shadow.camera.bottom = -1000;
-        dirLight.shadow.camera.left = -1000;
-        dirLight.shadow.camera.right = 1000;
-        dirLight.shadow.camera.near = 0.1;
-        dirLight.shadow.camera.far = 5000;
-        dirLight.shadow.mapSize.width = 2048;
-        dirLight.shadow.mapSize.height = 2048;
-        scene.add(dirLight);
-
-        // UI Elements
-        const loadingEl = document.getElementById('loading');
-        const progressContainer = document.getElementById('progress-container');
-        const progressBar = document.getElementById('progress-bar');
-
-        // Load GLB Model
-        const loader = new GLTFLoader();
-        
-        // Setup Draco Decoder for compressed models
-        const dracoLoader = new DRACOLoader();
-        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
-        loader.setDRACOLoader(dracoLoader);
-
-        let mixer; // Variable to hold the animation mixer
-        const clock = new THREE.Clock(); // Clock to track time for animations
-
-        loader.load('model_compressed.glb', function (gltf) {
-            const model = gltf.scene;
-            
-            // Check if the model has animations and play them
-            if (gltf.animations && gltf.animations.length > 0) {
-                mixer = new THREE.AnimationMixer(model);
-                
-                // Play all animations in a loop
-                gltf.animations.forEach((clip) => {
-                    // Trim a tiny fraction off the end of the clip (approx 1 frame) to prevent stutter at loop point
-                    clip.duration -= 0.04; 
-                    const action = mixer.clipAction(clip);
-                    action.play();
-                });
-            }
-
-            // Enable shadows for the model
-            model.traverse((child) => {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            scene.add(model);
-
-            // Automatically center and scale camera based on model size
-            const box = new THREE.Box3().setFromObject(model);
-            const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-
-            // Reset model origin to center
-            model.position.x += (model.position.x - center.x);
-            model.position.y += (model.position.y - center.y);
-            model.position.z += (model.position.z - center.z);
-
-            const maxDim = Math.max(size.x, size.y, size.z);
-            
-            // Drastically reduce the distance to put the camera INSIDE the stadium netting
-            // Zoomed in an additional 20% from the previous distance
-            let cameraDistance = maxDim * 0.32;
-            
-            // Mathematically calculate the height needed to make the camera look exactly 30 degrees DOWN at the player
-            // Horizontal distance to center is roughly cameraDistance * 1.414 (due to X and Z diagonals)
-            // Tan(30 degrees) = ~0.577. 1.414 * 0.577 = ~0.81
-            let cameraHeight = cameraDistance * 0.81;
-            
-            // Calculate position for an -80-degree starting angle
-            const angle = -80 * (Math.PI / 180);
-            const radius = cameraDistance * 1.414;
-            camera.position.set(
-                center.x + Math.sin(angle) * radius, 
-                center.y + cameraHeight, 
-                center.z + Math.cos(angle) * radius
-            );
-            
-            // Look directly at the player/center of the pitch
-            controls.target.set(center.x, center.y, center.z);
-            controls.update();
-
-            // We want to ensure the splash screen shows for at least 4 seconds
-            const timeElapsed = Date.now() - window.pageStartTime;
-            const remainingTime = Math.max(0, 4000 - timeElapsed);
-
-            setTimeout(() => {
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    // Capture exactly where the fake loading bar is right now
-                    const currentWidth = window.getComputedStyle(progressBar).width;
-                    progressBar.style.animation = 'none'; // Stop fake animation
-                    progressBar.style.width = currentWidth; // Lock it to current spot
-                    
-                    void progressBar.offsetWidth; // Force browser to register the lock
-                    
-                    progressBar.style.width = '100%'; // Smoothly zip it to 100%
-                }
-
-                // Wait 0.4 seconds for the bar to visually hit 100%, THEN fade out the splash screen
-                setTimeout(() => {
-                    const loadingScreen = document.getElementById('loading');
-                    loadingScreen.style.opacity = '0'; // Smooth fade out
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        scene.add(model);
-                    }, 500); // Wait 0.5s for the CSS fade transition to finish
-                }, 400);
-
-            }, remainingTime);
-
-        }, function (xhr) {
-            // Vercel sometimes blocks the exact file size (Content-Length), 
-            // so we handle the smooth loading bar using the 4-second CSS animation instead!
-        }, function (error) {
-            console.error('Error loading model:', error);
-            loadingEl.innerText = 'Error loading model. Please check console.';
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', onWindowResize, false);
-        function onWindowResize() {
-            const container = document.getElementById('canvas-container');
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
+    <script>
         // --- CAROUSEL LOGIC ---
         function initCarousel(trackId) {
             const track = document.getElementById(trackId);
@@ -567,23 +376,6 @@
             observer.observe(el);
         });
         // ------------------------------
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // Update the animation mixer if it exists
-            if (mixer) {
-                let delta = clock.getDelta();
-                // Prevent massive animation jumps if the browser lags (clamp to max ~20fps drop)
-                if (delta > 0.05) delta = 0.05; 
-                mixer.update(delta);
-            }
-            
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
     </script>
     <script>
         function scrollCarousel(button, direction) {
