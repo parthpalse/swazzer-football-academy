@@ -1,15 +1,22 @@
 /* Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
 :root {
     --primary-teal: #3BB28B;
     --logo-navy: #1A315C;
     --logo-blue: #89BBE3;
+    --hero-blue: #4898D8; /* Darker tone of logo blue */
     --dark: #111111;
     --light: #ffffff;
     --font-stack: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
     font-family: var(--font-stack);
     background-color: var(--light);
     color: var(--dark);
@@ -91,6 +98,10 @@ body {
     box-shadow: 0px 0px 0px var(--dark);
 }
 
+.nav-links a.btn-primary:hover {
+    color: var(--dark);
+}
+
 /* Hero Section (Contains 3D Canvas) */
 #hero-container {
     position: relative;
@@ -120,13 +131,14 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 0 10%;
+    box-sizing: border-box;
     pointer-events: none; /* Let clicks pass through to 3D canvas */
     z-index: 10;
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
 }
 
 .hero-title {
-    color: var(--light);
+    color: var(--hero-blue);
     font-size: 6rem;
     font-weight: 900;
     line-height: 1;
