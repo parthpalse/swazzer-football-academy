@@ -733,7 +733,7 @@ html, body {
 
     /* Coach Section */
     .coach-section {
-        padding: 40px 5%;
+        padding: 15px 5% 40px 5%;
         gap: 20px;
     }
     .coach-title {
