@@ -20,8 +20,6 @@ html, body {
     font-family: var(--font-stack);
     background-color: var(--light);
     color: var(--dark);
-    /* Allow scrolling now */
-    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -39,8 +37,9 @@ html, body {
 
 /* Navbar */
 .navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     background-color: var(--light);
     padding: 15px 40px;
