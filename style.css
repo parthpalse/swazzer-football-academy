@@ -803,7 +803,7 @@ html, body {
         padding: 40px 5%;
     }
     .map-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     .map-container iframe {
         height: 300px; /* Shorter map on mobile */
