@@ -373,8 +373,6 @@ section {
     min-width: 300px;
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
 }
 .coach-left img {
     width: 100%;
@@ -444,7 +442,7 @@ section {
 }
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: clamp(30px, 5vw, 60px);
 }
