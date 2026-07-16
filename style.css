@@ -823,11 +823,11 @@ html, body {
 
     /* Benefits Grid */
     .benefits-section {
-        padding: 60px 5%;
+        padding: 30px 5% 60px 5%;
     }
     .benefits-header {
-        font-size: 1.4rem;
-        margin-bottom: 40px;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
     }
     .benefits-grid {
         display: flex;
