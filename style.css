@@ -373,6 +373,8 @@ section {
     min-width: 300px;
     border-radius: 10px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 .coach-left img {
     width: 100%;
