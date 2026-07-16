@@ -796,6 +796,9 @@ html, body {
     .coach-title {
         font-size: 1.6rem;
     }
+    .coach-bullets li {
+        font-size: 0.9rem;
+    }
 
     /* Benefits Grid */
     .benefits-section {
