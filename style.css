@@ -31,6 +31,10 @@ section {
     display: none;
 }
 
+.desktop-only {
+    display: block;
+}
+
 /* Animations */
 .animate-on-scroll {
     opacity: 0;
@@ -697,6 +701,10 @@ section {
 @media (max-width: 768px) {
     .desktop-hide {
         display: block;
+    }
+    
+    .desktop-only {
+        display: none;
     }
     
     /* Navbar */
