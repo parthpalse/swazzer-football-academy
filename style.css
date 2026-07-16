@@ -802,9 +802,14 @@ html, body {
     }
     .coach-right {
         padding-top: 0;
+        text-align: center;
     }
     .coach-title {
         font-size: 1.6rem;
+    }
+    .coach-bullets {
+        display: inline-block;
+        text-align: left;
     }
     .coach-bullets li {
         font-size: 0.9rem;
