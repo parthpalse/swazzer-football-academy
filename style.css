@@ -701,12 +701,12 @@ html, body {
         margin-left: 5px;
     }
     .nav-links a {
-        font-size: 11px;
+        font-size: 10px;
         letter-spacing: 0;
     }
     .navbar .btn-primary {
-        padding: 6px 8px;
-        font-size: 11px;
+        padding: 4px 6px;
+        font-size: 9px;
     }
 
     /* Hero */
