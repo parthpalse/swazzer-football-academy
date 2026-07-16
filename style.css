@@ -788,7 +788,10 @@ html, body {
     /* Coach Section */
     .coach-section {
         padding: 15px 5% 40px 5%;
-        gap: 20px;
+        gap: 0px;
+    }
+    .coach-right {
+        padding-top: 0;
     }
     .coach-title {
         font-size: 1.6rem;
