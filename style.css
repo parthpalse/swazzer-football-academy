@@ -789,10 +789,10 @@ html, body {
         min-height: 350px;
     }
     .contact-block-title {
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
     }
     .contact-block-subtitle {
-        font-size: 0.95rem !important;
+        font-size: 0.85rem !important;
     }
     .split-image button {
         align-self: center !important;
