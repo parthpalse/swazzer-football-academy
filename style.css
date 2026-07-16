@@ -97,6 +97,56 @@ html, body {
     box-shadow: 0px 0px 0px var(--dark);
 }
 
+.btn-outline {
+    background-color: transparent;
+    color: var(--light);
+    font-weight: 800;
+    padding: 12px 24px;
+    border: 2px solid var(--light);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline-dark {
+    color: var(--dark);
+    border-color: var(--dark);
+    box-shadow: 4px 4px 0px var(--dark);
+}
+
+.btn-outline-dark:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-outline-dark:active {
+    box-shadow: 0px 0px 0px var(--dark);
+}
+
+.cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.cta-group a {
+    text-decoration: none;
+}
+
 .nav-links a.btn-primary:hover {
     color: var(--dark);
 }
@@ -645,7 +695,7 @@ html, body {
     .nav-links {
         flex: 1;
         gap: 4px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: space-evenly;
         align-items: center;
         margin-left: 5px;
