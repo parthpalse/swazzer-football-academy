@@ -155,8 +155,9 @@ html, body {
 #hero-container {
     position: relative;
     width: 100%;
-    height: calc(100vh - 80px); /* Fill screen below navbar */
+    height: calc(100vh - 90px); /* Fill screen below navbar */
     overflow: hidden;
+    margin-top: 90px;
 }
 
 #hero-video {
@@ -710,6 +711,10 @@ html, body {
     }
 
     /* Hero */
+    #hero-container {
+        margin-top: 56px;
+        height: calc(100vh - 56px);
+    }
     .hero-overlay {
         padding: 5% 5% 0 5%;
         justify-content: flex-start;
