@@ -389,6 +389,11 @@ section {
     justify-content: flex-start;
     padding-top: clamp(0px, 4vw, 35px);
 }
+.coach-bio-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    text-align: right;
+}
 .coach-title {
     font-size: clamp(1.8rem, 4vw, 2.2rem);
     font-weight: 900;
@@ -890,5 +895,8 @@ section {
 @media (max-width: 768px) {
     .carousel-arrow {
         display: none;
+    }
+    .coach-bio-wrapper {
+        text-align: center;
     }
 }
