@@ -213,11 +213,14 @@
         </div>
     </div>
     <!-- Match Highlights Title -->
-    <div style="background-color: var(--dark); text-align: center; padding: 50px 20px 30px 20px;" class="animate-on-scroll">
-        <h2 class="split-title match-highlights-title" style="margin: 0;">
+    <div style="background-color: var(--dark); text-align: center; padding: 20px 10px 25px 10px;" class="animate-on-scroll">
+        <h2 class="split-title match-highlights-title" style="margin: 0; white-space: nowrap;">
             MATCH HIGHLIGHTS
         </h2>
         <style>
+            .match-highlights-title {
+                font-size: clamp(1.5rem, 7vw, 4rem) !important;
+            }
             .match-highlights-title::after {
                 left: 50% !important;
                 transform: translateX(-50%) !important;

@@ -928,8 +928,8 @@ section {
 
 @media (max-width: 768px) {
     .fullscreen-video-banner {
-        height: 40vh;
-        min-height: 250px;
+        height: 30vh;
+        min-height: 200px;
     }
 }
 
