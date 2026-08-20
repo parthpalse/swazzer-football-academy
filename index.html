@@ -86,7 +86,7 @@
             </a>
         </div>
         <div class="nav-links">
-            <a href="#team-poster">Swazzers</a>
+            <a href="#section-swazzers">Swazzers</a>
             <a href="#section-training">Training</a>
             <a href="#service-anchor">Service</a>
             <a href="#section-contact" class="btn-primary" style="text-decoration:none;">CONTACT US</a>
@@ -213,6 +213,20 @@
         </div>
     </div>
 
+    <!-- Full-screen Web Video Holder (Web Only) -->
+    <section class="fullscreen-video-banner desktop-only animate-on-scroll">
+        <video autoplay muted loop playsinline id="custom-web-video">
+            <source src="web_banner.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <!-- Marquee (below video, web only) -->
+    <div class="marquee-container desktop-only">
+        <div class="marquee-content">
+            <span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span><span>SWAZZER FOOTBALL ACADEMY</span>
+        </div>
+    </div>
+
     <!-- Training Section -->
     <section id="section-training" class="split-section animate-on-scroll">
         <div class="carousel-container training-carousel">
@@ -220,7 +234,7 @@
             <button class="carousel-arrow next" onclick="scrollCarousel(this, 1)">&#10095;</button>
             <div class="carousel-track" id="training-carousel">
                 <div class="carousel-slide">
-                    <video src="training1.mp4" muted loop playsinline></video>
+                    <video src="training1.mp4" autoplay muted loop playsinline></video>
                 </div>
                 <div class="carousel-slide">
                     <video src="training2.mp4" muted loop playsinline></video>
@@ -461,13 +475,49 @@
         // ------------------------------
     </script>
     <script>
+        // ── Simple native-scroll carousel ─────────────────────────
         function scrollCarousel(button, direction) {
             const container = button.closest('.carousel-container');
             const track = container.querySelector('.carousel-track');
-            const slideWidth = track.clientWidth;
-            track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+            const slideWidth = container.clientWidth;
+            const slides = track.querySelectorAll('.carousel-slide');
+            const total = slides.length;
+            const current = Math.round(track.scrollLeft / slideWidth);
+            const next = Math.max(0, Math.min(current + direction, total - 1));
+            track.scrollTo({ left: next * slideWidth, behavior: 'smooth' });
+
+            // update dots
+            container.querySelectorAll('.dot').forEach((d, i) =>
+                d.classList.toggle('active', i === next));
+
+            // play/pause
+            slides.forEach((s, i) => {
+                const v = s.querySelector('video');
+                if (v) { i === next ? v.play().catch(() => {}) : v.pause(); }
+            });
         }
 
+        // Touch swipe for mobile (dots update on scroll)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.carousel-track').forEach(track => {
+                const container = track.closest('.carousel-container');
+                const slides = track.querySelectorAll('.carousel-slide');
+
+                track.addEventListener('scroll', () => {
+                    const slideWidth = container.clientWidth;
+                    if (!slideWidth) return;
+                    const idx = Math.round(track.scrollLeft / slideWidth);
+                    container.querySelectorAll('.dot').forEach((d, i) =>
+                        d.classList.toggle('active', i === idx));
+                    slides.forEach((s, i) => {
+                        const v = s.querySelector('video');
+                        if (v) { i === idx ? v.play().catch(() => {}) : v.pause(); }
+                    });
+                }, { passive: true });
+            });
+        });
+    </script>
+    <script>
         function sendContactMessage() {
             const name = document.getElementById('contact-name').value.trim();
             const phone = document.getElementById('contact-phone').value.trim();
