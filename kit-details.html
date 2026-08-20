@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Recommendations | Swazzer Football Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto;
+            text-align: left;
+        }
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card h3 {
+            color: #3BB28B;
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .product-card p {
+            color: #fff;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .btn-buy {
+            background-color: transparent;
+            color: #3BB28B;
+            border: 2px solid #3BB28B;
+            padding: 12px 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-buy:hover {
+            background-color: #3BB28B;
+            color: #111;
+        }
+    </style>
+</head>
+<body style="background-color: #111; color: #fff; text-align: center; padding: 60px 20px;">
+    
+    <h1 style="color: #3BB28B; font-size: clamp(2rem, 5vw, 3rem); text-transform: uppercase; margin-bottom: 10px;">Recommended Equipment</h1>
+    <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px auto; opacity: 0.9; line-height: 1.6;">
+        Along with the Swazzer Kit, here is the recommended gear from Decathlon to get you match-ready.
+    </p>
+
+    <div class="products-grid">
+        <!-- Kids Shoes -->
+        <div class="product-card">
+            <div>
+                <h3>Kids Football Shoes (Turf)</h3>
+                <p>Kids Football Shoes for Turf Velcro 100 - Black and Yellow</p>
+            </div>
+            <a href="https://www.decathlon.in/p/8668806/kids-football-shoes-for-turf-velcro-100-black-and-yellow" target="_blank" class="btn-buy">Buy on Decathlon</a>
+        </div>
+
+        <!-- Mens Shoes -->
+        <div class="product-card">
+            <div>
+                <h3>Men's Football Shoes (Turf)</h3>
+                <p>Men's Football Shoes Agility 100 HG - Black/White</p>
+            </div>
+            <a href="https://www.decathlon.in/p/8398029/men-football-shoes-agility-100-for-turf-black" target="_blank" class="btn-buy">Buy on Decathlon</a>
+        </div>
+
+        <!-- Ball Option 1 -->
+        <div class="product-card">
+            <div>
+                <h3>Training Football (Option 1)</h3>
+                <p>Size 5 Machine-Stitched Football Training Ball - White/Pink</p>
+            </div>
+            <a href="https://www.decathlon.in/p/8789910/size-5-machine-stitched-football-training-ball-white" target="_blank" class="btn-buy">Buy on Decathlon</a>
+        </div>
+
+        <!-- Ball Option 2 -->
+        <div class="product-card">
+            <div>
+                <h3>Club Hybrid Football (Option 2)</h3>
+                <p>Size 5 FIFA Basic Football Club Hybrid - White/Green</p>
+            </div>
+            <a href="https://www.decathlon.in/p/8790034/size-5-fifa-basic-football-club-hybrid-white" target="_blank" class="btn-buy">Buy on Decathlon</a>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn-primary" style="text-decoration: none; display: inline-block; margin-top: 20px; padding: 15px 30px;">
+        &larr; Back to Home
+    </a>
+
+</body>
+</html>
